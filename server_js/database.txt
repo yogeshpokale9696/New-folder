@@ -1,0 +1,9 @@
+insert into user values(101,'Yogesh Pokale',101,'yp96','$2b$10$CWPd6DJrihfLaDPZ9CLAlODOUWafviakcyjzbTYIOibSI9zwhG7hq');
+
+
+
+insert into user(name,acc_id,username,pass) values('Yogesh Pokale',101,'yp96','$2b$10$CWPd6DJrihfLaDPZ9CLAlODOUWafviakcyjzbTYIOibSI9zwhG7hq');
+
+
+insert into user(name,username,email,pass) values('Yogesh Pokale','yp96',email,'$2b$10$CWPd6DJrihfLaDPZ9CLAlODOUWafviakcyjzbTYIOibSI9zwhG7hq');
+res.render('/register',{success : "User register Not Succesful" + error })
