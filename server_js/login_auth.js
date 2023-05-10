@@ -10,6 +10,7 @@ const express = require('express')
 const app = express()
 app.set('view-engine', 'ejs')
 
+
 async function validate(req, res) {
     var username = req.body.usrname
     var password = req.body.password

@@ -20,7 +20,7 @@
     <!-- Style -->
     <link rel="stylesheet" href="css/style.css">
 
-    <title>Sidebar #8</title>
+    <title>New-Transaction</title>
   </head>
   <body>
   
@@ -37,7 +37,7 @@
           <img src="images/person_4.jpg" alt="Image" class="img-fluid">
           <h3 class="name">
             <%= name %></h3>
-          <span class="country">Web Designer</span>
+          
         </div>
 
         
@@ -53,7 +53,7 @@
               <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
                 <div>
                   <ul>
-                    <li><a href="#">Account Summary</a></li>
+                    <li><a href="./acc-summary">Account Summary</a></li>
                     <li><a href="#">Edit Profile</a></li>
                     <li><a href="#">Define Limit</a></li>
                   </ul>
@@ -70,7 +70,7 @@
               <div id="collapseTwo" class="collapse" aria-labelledby="headingOne">
                 <div>
                   <ul>
-                    <li><a href="/new-transaction.ejs">New</a></li>
+                    <li><a href="/new-transaction">New</a></li>
                     <li><a href="#">Sent</a></li>
                     <li><a href="#">Recieved</a></li>
                     <li><a href="#">BlockChain Transactions</a></li>
@@ -114,114 +114,42 @@
       
     </aside>
     <main>
-      <div class="site-section">
-        <div class="container">
-          <div class="row justify-content-center">
-
-
-
-
-
-            <div class="col-md-9">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="d-flex post-entry">
-                    <div class="custom-thumbnail">
-                      <img src="images/person_1.jpg" alt="Image" class="img-fluid">
-                    </div>
-                    <div class="post-content">
-                      <h3>How the gut microbes you're born with affect your lifelong health</h3>
-                      <div class="post-meta"><span>Posted:</span> Dec 17, 2019</div>
-                    </div>
-                  </div>
+     
+        <div class="site-section">
+            <div class="container">
+              <% if (message.length > 0) { %>
+                <div class="alert alert-success">
+                  <strong>Success!</strong> <%= message %>
                 </div>
-                <div class="col-md-6">
-                  <div class="d-flex post-entry">
-                    <div class="custom-thumbnail">
-                      <img src="images/person_2.jpg" alt="Image" class="img-fluid">
-                    </div>
-                    <div class="post-content">
-                      <h3>How the gut microbes you're born with affect your lifelong health</h3>
-                      <div class="post-meta"><span>Posted:</span> Dec 17, 2019</div>
-                    </div>
-                  </div>
+              <% } else if (error.length > 0) { %>
+                <div class="alert alert-danger">
+                  <strong>Error!</strong> <%= error %>
                 </div>
+              <% } %>
+              <div class="row justify-content-center">
+               
+                <form method="post" >
+                    <div class="mb-3">
+                      <label for="User_Name" class="form-label">Transaction To</label>
+                      <input type="text" class="form-control" name="user_name" id="" aria-describedby="emailHelp">
+                      
+                    </div>
+                    <div class="mb-3">
+                        <label for="to_id" class="form-label">Acc_id of Beneficiary</label>
+                        <input type="number" class="form-control" name="to_id" id="to_id" aria-describedby="emailHelp">
+                        
+                      </div>
+                    <div class="mb-3">
+                      <label for="value" class="form-label">Value (&#8377;)</label>
+                      <input type="number" name="amount" class="form-control" id="value" >
 
-                <div class="col-md-6">
-                  <div class="d-flex post-entry">
-                    <div class="custom-thumbnail">
-                      <img src="images/person_3.jpg" alt="Image" class="img-fluid">
                     </div>
-                    <div class="post-content">
-                      <h3>How the gut microbes you're born with affect your lifelong health</h3>
-                      <div class="post-meta"><span>Posted:</span> Dec 17, 2019</div>
+                    <div class="mb-3 form-check">
+                      <input type="checkbox" name="check_BT" class="form-check-input" id="check_BT">
+                      <label class="form-check-label" for="exampleCheck1">Check to make Blockchain Transaction</label>
                     </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="d-flex post-entry">
-                    <div class="custom-thumbnail">
-                      <img src="images/person_4.jpg" alt="Image" class="img-fluid">
-                    </div>
-                    <div class="post-content">
-                      <h3>How the gut microbes you're born with affect your lifelong health</h3>
-                      <div class="post-meta"><span>Posted:</span> Dec 17, 2019</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <div class="d-flex post-entry">
-                    <div class="custom-thumbnail">
-                      <img src="images/person_1.jpg" alt="Image" class="img-fluid">
-                    </div>
-                    <div class="post-content">
-                      <h3>How the gut microbes you're born with affect your lifelong health</h3>
-                      <div class="post-meta"><span>Posted:</span> Dec 17, 2019</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="d-flex post-entry">
-                    <div class="custom-thumbnail">
-                      <img src="images/person_2.jpg" alt="Image" class="img-fluid">
-                    </div>
-                    <div class="post-content">
-                      <h3>How the gut microbes you're born with affect your lifelong health</h3>
-                      <div class="post-meta"><span>Posted:</span> Dec 17, 2019</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <div class="d-flex post-entry">
-                    <div class="custom-thumbnail">
-                      <img src="images/person_3.jpg" alt="Image" class="img-fluid">
-                    </div>
-                    <div class="post-content">
-                      <h3>How the gut microbes you're born with affect your lifelong health</h3>
-                      <div class="post-meta"><span>Posted:</span> Dec 17, 2019</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="d-flex post-entry">
-                    <div class="custom-thumbnail">
-                      <img src="images/person_4.jpg" alt="Image" class="img-fluid">
-                    </div>
-                    <div class="post-content">
-                      <h3>How the gut microbes you're born with affect your lifelong health</h3>
-                      <div class="post-meta"><span>Posted:</span> Dec 17, 2019</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-          </div>
-        </div>
-      </div>  
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
     </main>
     
     

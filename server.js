@@ -1,13 +1,13 @@
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
-
+const transaction = require('./server_js/transactions')
 const express = require('express')
 const path = require('path')
 const app = express()
 const bcrypt = require('bcrypt')
 const passport = require('passport')
-const flash = require('express-flash')
+
 const session = require('express-session')
 const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -18,7 +18,8 @@ const validate = require('./server_js/login_auth')
 const register = require('./server_js/register')
 var cookieParser = require("cookie-parser");
 
-
+const flash = require('connect-flash')
+app.use(flash());
 
 const users = []
 
@@ -31,7 +32,7 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
   cookie: {
-      maxAge: 1000 * 60 
+      maxAge: 1000 * 60 * 10
     }
    
 }))
@@ -45,25 +46,21 @@ app.use(session({
 //   }
 //   next();
 // });
-// const Routes = require("./routes/index.js")
-
-// app.use(Routes);
-
-
-
-
 
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(methodOverride('_method'))
 
-app.get('/',  (req, res) => {
- 
+app.get('/', checkNotAuthenticated, (req, res) => {
   res.render('index.ejs')
 })
 app.get('/Dashboard', checkAuthenticated, (req, res) => {
-  console.log( "hello")
-  res.render('Dashboard.ejs', { name: req.session.user.name })
+  // console.log( "hello")
+  res.render('acc-summary.ejs', { name:req.session.user.name})
+})
+app.get('/acc-summary', checkAuthenticated, (req, res) => {
+  // console.log( "hello")
+  res.render('acc-summary.ejs', { name:req.session.user.name})
 })
 app.get('/login', checkNotAuthenticated, (req, res) => {
   res.render('login.ejs',{success : ""})
@@ -83,6 +80,29 @@ app.get('/register', checkNotAuthenticated, (req, res) => {
 
 app.post('/register',(req, res) => {
   register(req,res)
+})
+app.get('/new-trans', checkAuthenticated,(req, res) => {
+  res.render('new-transaction.ejs', { name:req.session.user.name,message:"Transaction successfully added" ,error : ""}) 
+})
+app.get('/new-tranf', checkAuthenticated,(req, res) => {
+  res.render('new-transaction.ejs', { name:req.session.user.name,message:"",error:"Transaction failed"}) 
+})
+
+app.get('/new-transaction', checkAuthenticated,(req, res) => {
+  res.render('new-transaction.ejs', { name:req.session.user.name,message:"",error:""}) 
+})
+app.post('/new-transaction',(req, res) => {
+  if (req.body.check_BT == "on") {
+    console.log('Blockchain transaction');
+
+    transaction.tran_B(req,res) // Blockchain transaction
+
+  } else {
+    console.log('Simple transaction');
+
+    transaction.tran(req,res) // Simple transaction
+  }
+  // res.send('Form submitted');
 })
 
 app.delete('/logout', (req, res) => {
@@ -115,3 +135,11 @@ function checkNotAuthenticated(req, res, next) {
 app.listen(3000, () => {
   console.log('Server listening on port 3000 visit localhost:3000');
 });
+
+// const Routes = require("./routes/index.js")
+
+// app.use(Routes);
+// module.exports = {
+//   checkAuthenticated,
+//   checkNotAuthenticated
+// }

@@ -10,27 +10,36 @@ async function register (req,res) {
     var username = req.body.usrname
     var email = req.body.email
     var password = req.body.password
+    var acc_id = req.body.acc_id
     var hashedPassword = await bcrypt.hash(password, 10)
 
     if(username && password)
     {
       
-       let query = `insert into user(name,username,email,pass) values("${name}","${username}","${email}","${hashedPassword}")`;
+       let query = `insert into user(name,acc_id,username,email,pass) values("${name}","${acc_id}","${username}","${email}","${hashedPassword}")`;
+        try{
 
-        conn.query(query, async function(error, data){
-
-            if(data != 0 )
-            {
-                res.redirect('/login')
-
-                
-            }
-            else
-            {
-                res.redirect('/register')
-            }
+            conn.query(query, async function(error, data){
+    
+                if(data != 0 )
+                {
+                    res.redirect('/login')
+                    // res.send("User registered successfully");
+                    
+                }
+                else
+                {
+                    res.redirect('/register')
+                }
+                res.end();
+            });
+        }
+        catch(error){
+            res.send(error.message);
+            // res.redirect('/register');
             res.end();
-        });
+
+        }
     }
     else
     {
